@@ -225,6 +225,7 @@ meta_search_dobind_init(Operation *op, SlapReply *rs, metaconn_t **mcp,
   ldap_set_option(msc->msc_ld, LDAP_OPT_CONNECT_ASYNC, LDAP_OPT_ON);
 
 retry:;
+  rc = meta_back_proxy_authz_cred( mc, candidate, op, rs, LDAP_BACK_DONTSEND, &binddn, &cred, &method );
   if (!BER_BVISEMPTY(&binddn) && BER_BVISEMPTY(&cred)) {
     /* bind anonymously? */
     Debug(LDAP_DEBUG_ANY,
